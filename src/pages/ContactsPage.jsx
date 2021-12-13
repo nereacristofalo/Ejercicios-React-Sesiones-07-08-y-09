@@ -14,10 +14,24 @@ const ContactsPage = () => {
     setList([...list, new Contact(name, false, list[list.length - 1].id + 1)]);
   };
 
+  const onUpdateContact = (contact) => {
+    console.log('contact', contact);
+    setList((oldList) => {
+      const newList = oldList.map((e) => {
+        if (e.id === contact.id) {
+          return { ...e, isOnline: !e.isOnline };
+        }
+        return e;
+      });
+      console.log('LISTAS', newList, oldList);
+      return newList;
+    });
+  };
+
   return (
     <div>
-      <AddContact onChange={onAddContact} />
-      <ContactsList contacts={list} />
+      <AddContact onContactAdded={onAddContact} />
+      <ContactsList contacts={list} onUpdate={onUpdateContact} />
     </div>
   );
 };

@@ -28,10 +28,25 @@ const ContactsPage = () => {
     });
   };
 
+  const onEvent5 = (contact) => {
+    const index = list.indexOf(contact);
+    const tempTasks = [...list];
+    tempTasks.splice(index, 1);
+    setList(tempTasks);
+
+    // OTRA FORMA DE ELIMINAR ELEMENTOS DE UNA LISTA USANDO .filter
+    // const newList = list.filter((e) => e.id !== contact.id);
+    // setList(newList);
+  };
+
   return (
-    <div>
+    <div className="w-25">
       <AddContact onContactAdded={onAddContact} />
-      <ContactsList contacts={list} onUpdate={onUpdateContact} />
+      <ContactsList
+        contacts={list}
+        onUpdate={onUpdateContact}
+        onEvent4={onEvent5}
+      />
     </div>
   );
 };

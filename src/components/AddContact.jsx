@@ -15,10 +15,16 @@ const AddContact = (props) => {
   };
 
   return (
-    <div>
-      <label>Name:</label>
-      <input onChange={inputChange} />
-      <button onClick={onAdd}>Add</button>
+    <div className="mb-3 d-flex w-100 justify-content-between">
+      <div className="w-75">
+        <label className="me-1">
+          <h4> Name:</h4>
+        </label>
+        <input onChange={inputChange} />
+      </div>
+      <button className="btn btn-outline-primary w-25" onClick={onAdd}>
+        <i class="bi bi-person-plus" style={{ color: 'primary' }}></i>
+      </button>
     </div>
   );
 };

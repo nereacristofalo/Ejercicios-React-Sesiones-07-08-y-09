@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddContact from '../components/AddContact';
 import ContactsList from '../components/ContactsList';
 import { Contact } from '../models/contact.model';
@@ -11,8 +11,16 @@ const ContactsPage = () => {
   ]);
 
   const onAddContact = (name) => {
+    setLoading(true);
     setList([...list, new Contact(name, false, list[list.length - 1].id + 1)]);
   };
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [list]);
 
   const onUpdateContact = (contact) => {
     console.log('contact', contact);
@@ -39,14 +47,24 @@ const ContactsPage = () => {
     // setList(newList);
   };
 
+  const loadingStyle = {
+    color: 'grey',
+    fontSize: '15px',
+    fontWeight: 'bold',
+  };
+
   return (
     <div className="w-25">
       <AddContact onContactAdded={onAddContact} />
-      <ContactsList
-        contacts={list}
-        onUpdate={onUpdateContact}
-        onEvent4={onEvent5}
-      />
+      {loading ? (
+        <p style={loadingStyle}>Loading tasks...</p>
+      ) : (
+        <ContactsList
+          contacts={list}
+          onUpdate={onUpdateContact}
+          onEvent4={onEvent5}
+        />
+      )}
     </div>
   );
 };
